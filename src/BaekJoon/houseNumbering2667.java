@@ -41,7 +41,7 @@ public class houseNumbering2667 {
 
     static void pro() {
         group = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) {                           // 이중 for문으로 쭉 돌면서 집이 있는 격자를 만났을 때 방문 했으면 넘어가고 아니면 dfs로 전부 엮어버리기
             for (int j = 0; j < N; j++) {
                 if (!visit[i][j] && a[i].charAt(j) == '1') {
                     groupCnt = 0;
