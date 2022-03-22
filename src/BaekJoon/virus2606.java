@@ -43,7 +43,7 @@ public class virus2606 {
     static void pro() {
         count = 0;
         dfs(1);
-        System.out.println(count - 1);
+        System.out.println(count - 1);  // 본인을 제외한 개수를 출력해야하기 때문
     }
 
     public static void main(String[] args) {
