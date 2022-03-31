@@ -68,10 +68,10 @@ public class lab14502 {
         }
         if (idx > B) return;  // 더 이상 세울 수 있는 벽이 없는 상태
 
-        A[blank[idx][0]][blank[idx][1]] = 1;
+        A[blank[idx][0]][blank[idx][1]] = 1;            // 해당 좌표에 벽을 세우는 경우
         dfs(idx + 1, selected_cnt + 1);
 
-        A[blank[idx][0]][blank[idx][1]] = 0;
+        A[blank[idx][0]][blank[idx][1]] = 0;            // 해당 좌표에 벽을 세우지 않는 경우
         dfs(idx + 1, selected_cnt);
     }
 
