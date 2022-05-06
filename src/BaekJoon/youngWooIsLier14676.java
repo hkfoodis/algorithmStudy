@@ -59,7 +59,7 @@ public class youngWooIsLier14676 {
         }
         if (abnormal) System.out.println("Lier!");
         else System.out.println("King-God-Emperor");
-    }z
+    }
 
     public static void main(String[] args) {
         input();
