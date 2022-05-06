@@ -34,34 +34,32 @@ public class youngWooIsLier14676 {
         boolean abnormal = false;
         while (K-- > 0) {
             int t = scan.nextInt(), x = scan.nextInt();
-            if (t == 1) {
-                // x의 선행 건물들이 모두 지어졌는지 확인
-                if (satisfaction[x] < indeg[x]) abnormal = true;
+            if (t == 1){
+                // x 의 선행 건물들이 모두 지어졌는 지 확인하기
+                if (satisfaction[x] < indeg[x])
+                    abnormal = true;
 
                 cnt[x]++;
-                // x가 처음 지어진 경우 x가 영향을 주는 건물들에 선행건물이 지어졌음을 알려주기
-                if (cnt[x] == 1) {
-                    for (int y : adj[x]) {
+                // x 가 처음 지어진 것이라면 x가 영향을 주는 건물들에 "너희의 선행 건물 중 하나가 처음 지어졌어" 라고 알려주기
+                if (cnt[x] == 1)
+                    for (int y: adj[x])
                         satisfaction[y]++;
-                    }
-                }
-            } else {
-                // x가 한 개 이상 지어져 있는지 확인
-                if (cnt[x] == 0) abnormal = true;
+            }
+            else{
+                // x 라는 건물이 한 개 이상 지어져 있는 지 확인하기
+                if (cnt[x] == 0)
+                    abnormal = true;
 
                 cnt[x]--;
-                // x가 더이상 남아있지 않다면, 선행 건물들이 사라졌다고 알려주기
-                if (cnt[x] == 0) {
-                    for (int y : adj[x]) {
+                // x 가 더 이상 남아있지 않다면, "너희의 선행 건물 중 하나가 사라졌어" 라고 알려주기
+                if (cnt[x] == 0)
+                    for (int y: adj[x])
                         satisfaction[y]--;
-                    }
-                }
             }
         }
-
         if (abnormal) System.out.println("Lier!");
-        else System.out.println("king-God-Emperor");
-    }
+        else System.out.println("King-God-Emperor");
+    }z
 
     public static void main(String[] args) {
         input();
