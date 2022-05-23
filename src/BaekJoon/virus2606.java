@@ -11,7 +11,7 @@ public class virus2606 {
 
     static int N, M, count;
     static ArrayList<Integer>[] adj;
-    static boolean visit[];
+    static boolean visited[];
 
     static void input() {
         N = scan.nextInt();
@@ -27,15 +27,15 @@ public class virus2606 {
         for (int i = 1;i<=N;i++)
             Collections.sort(adj[i]);
 
-        visit = new boolean[N + 1];
+        visited = new boolean[N + 1];
     }
 
     static void dfs(int x) {
         count++;
-        visit[x] = true;
+        visited[x] = true;
 
         for (int i : adj[x]) {
-            if (visit[i]) continue;
+            if (visited[i]) continue;
             dfs(i);
         }
     }
