@@ -37,7 +37,7 @@ public class plus123515990 {
             int N = scan.nextInt();
             int ans = 0;
             for (int cur = 1; cur <= 3; cur++) {
-                ans += Dy[n][cur];
+                ans += Dy[N][cur];
                 ans %= MOD;
             }
             sb.append(ans).append('\n');
