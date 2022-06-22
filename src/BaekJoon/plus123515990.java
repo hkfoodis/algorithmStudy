@@ -7,18 +7,27 @@ public class plus123515990 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int[] Dy;
+    static int[][] Dy;
+    static final int MOD = 1000000009;
 
     static void preprocess(){
-        Dy = new int[15];
+        Dy = new int[100005][4];
         // 초기값 구하기
-        Dy[1] = 1;
-        Dy[2] = 2;
-        Dy[3] = 4;
+        Dy[1][1] = 1;
+        Dy[2][2] = 1;
+        Dy[3][1] = 1;
+        Dy[3][2] = 1;
+        Dy[3][3] = 1;
 
         // 점화식을 토대로 Dy 배열 채우기
-        for (int i = 4; i <= 11; i++){
-            Dy[i] = Dy[i - 1] + Dy[i - 2] + Dy[i - 3];
+        for (int i = 4; i <= 100000; i++) {
+            for (int cur = 1; cur <= 3; cur++) {
+                for (int prev = 1; prev <= 3; prev++) {
+                    if (cur == prev) continue;
+                    Dy[i][cur] += Dy[i - cur][prev];
+                    Dy[i][cur] %= MOD;
+                }
+            }
         }
     }
 
@@ -26,7 +35,12 @@ public class plus123515990 {
         int T = scan.nextInt();
         for (int tt = 1; tt <= T; tt++){
             int N = scan.nextInt();
-            sb.append(Dy[N]).append('\n');
+            int ans = 0;
+            for (int cur = 1; cur <= 3; cur++) {
+                ans += Dy[n][cur];
+                ans %= MOD;
+            }
+            sb.append(ans).append('\n');
         }
         System.out.print(sb);
     }
