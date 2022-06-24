@@ -26,6 +26,8 @@ public class treeAndQuery15681 {
         }
     }
 
+    /* DP 방식을 사용했다고 볼 수 있다. Rooted Tree의 경우는 DP를 사용하기 가장 좋은 방식이다.
+    * DP를 사용할 때 대부분 DFS 한 번이면 원하는 해답을 구할 수 있다. DFS를 사용하여 leaf node까지 갔다가 시작 하기 때문 */
     static void dfs(int x, int par) {
         D[x] = 1;
 
