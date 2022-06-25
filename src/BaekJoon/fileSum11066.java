@@ -1,59 +1,59 @@
 package BaekJoon;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.lang.reflect.Array;
+import java.util.*;
 
-public class treeAndQuery15681 {
+public class fileSum11066 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, R, Q;
-    static ArrayList<Integer>[] adj;
-    static int[] D;
+    static int K, Q;
+    static int[] num;
+    static int[][] Dy, sum;
 
-    static void input() {
-        N = scan.nextInt();
-        R = scan.nextInt();
-        Q = scan.nextInt();
-        adj = new ArrayList[N + 1];
-        D = new int[N + 1];
-        for (int i = 1; i <= N; i++) adj[i] = new ArrayList<>();
-        for (int i = 1; i < N; i++) {
-            int x = scan.nextInt(), y = scan.nextInt();
-            adj[x].add(y);
-            adj[y].add(x);
+    static void input(){
+        K = scan.nextInt();
+        num = new int[K + 1];
+        sum = new int[K + 1][K + 1];
+        for (int i = 1; i <= K; i++){
+            num[i] = scan.nextInt();
         }
     }
 
-    /* DP 방식을 사용했다고 볼 수 있다. Rooted Tree의 경우는 DP를 사용하기 가장 좋은 방식이다.
-    * DP를 사용할 때 대부분 DFS 한 번이면 원하는 해답을 구할 수 있다. DFS를 사용하여 leaf node까지 갔다가 시작 하기 때문 */
-    static void dfs(int x, int par) {
-        D[x] = 1;
-
-        for (int y : adj[x]) {
-            if (y == par) continue;
-
-            dfs(y, x);
-            D[x] += D[y];
+    static void preprocess(){
+        for (int i = 1; i <= K; i++){
+            for (int j = i; j <= K; j++){
+                sum[i][j] = sum[i][j - 1] + num[j];
+            }
         }
     }
 
     static void pro() {
-        dfs(R, -1);
+        preprocess();
+        Dy = new int[K + 1][K + 1];
 
-        for (int i = 1; i <= Q; i++) {
-            int x = scan.nextInt();
-            sb.append(D[x]).append('\n');
+        for (int len = 2; len <= K; len ++){
+            for (int i = 1; i <= K - len + 1; i++){
+                int j = i + len - 1;
+                Dy[i][j] = Integer.MAX_VALUE;
+                for (int k = i; k < j; k++){
+                    Dy[i][j] = Math.min(Dy[i][j], Dy[i][k] + Dy[k + 1][j] + sum[i][j]);
+                }
+            }
         }
 
-        System.out.println(sb.toString());
+        System.out.println(Dy[1][K]);
     }
 
     public static void main(String[] args) {
-        input();
-        pro();
+        Q = scan.nextInt();
+        for (int rep = 1; rep<=Q;rep++) {
+            input();
+            pro();
+        }
     }
+
 
     static class FastReader {
         BufferedReader br;

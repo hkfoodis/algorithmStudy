@@ -1,59 +1,55 @@
 package BaekJoon;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 
-public class treeAndQuery15681 {
+public class plus123515990 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, R, Q;
-    static ArrayList<Integer>[] adj;
-    static int[] D;
+    static int[][] Dy;
+    static final int MOD = 1000000009;
 
-    static void input() {
-        N = scan.nextInt();
-        R = scan.nextInt();
-        Q = scan.nextInt();
-        adj = new ArrayList[N + 1];
-        D = new int[N + 1];
-        for (int i = 1; i <= N; i++) adj[i] = new ArrayList<>();
-        for (int i = 1; i < N; i++) {
-            int x = scan.nextInt(), y = scan.nextInt();
-            adj[x].add(y);
-            adj[y].add(x);
-        }
-    }
+    static void preprocess(){
+        Dy = new int[100005][4];
+        // 초기값 구하기
+        Dy[1][1] = 1;
+        Dy[2][2] = 1;
+        Dy[3][1] = 1;
+        Dy[3][2] = 1;
+        Dy[3][3] = 1;
 
-    /* DP 방식을 사용했다고 볼 수 있다. Rooted Tree의 경우는 DP를 사용하기 가장 좋은 방식이다.
-    * DP를 사용할 때 대부분 DFS 한 번이면 원하는 해답을 구할 수 있다. DFS를 사용하여 leaf node까지 갔다가 시작 하기 때문 */
-    static void dfs(int x, int par) {
-        D[x] = 1;
-
-        for (int y : adj[x]) {
-            if (y == par) continue;
-
-            dfs(y, x);
-            D[x] += D[y];
+        // 점화식을 토대로 Dy 배열 채우기
+        for (int i = 4; i <= 100000; i++) {
+            for (int cur = 1; cur <= 3; cur++) {
+                for (int prev = 1; prev <= 3; prev++) {
+                    if (cur == prev) continue;
+                    Dy[i][cur] += Dy[i - cur][prev];
+                    Dy[i][cur] %= MOD;
+                }
+            }
         }
     }
 
     static void pro() {
-        dfs(R, -1);
-
-        for (int i = 1; i <= Q; i++) {
-            int x = scan.nextInt();
-            sb.append(D[x]).append('\n');
+        int T = scan.nextInt();
+        for (int tt = 1; tt <= T; tt++){
+            int N = scan.nextInt();
+            int ans = 0;
+            for (int cur = 1; cur <= 3; cur++) {
+                ans += Dy[N][cur];
+                ans %= MOD;
+            }
+            sb.append(ans).append('\n');
         }
-
-        System.out.println(sb.toString());
+        System.out.print(sb);
     }
 
     public static void main(String[] args) {
-        input();
+        preprocess();
         pro();
     }
+
 
     static class FastReader {
         BufferedReader br;
