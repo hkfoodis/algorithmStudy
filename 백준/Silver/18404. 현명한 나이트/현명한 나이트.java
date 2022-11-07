@@ -19,6 +19,15 @@ public class Main {
         sy = scan.nextInt();
     }
 
+    static void pro() {
+        bfs();
+        while (M-- > 0) {
+            int ex = scan.nextInt();
+            int ey = scan.nextInt();
+            System.out.print(dist[ex][ey]+ " ");
+        }
+    }
+
     static void bfs() {
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= N; j++) {
@@ -27,17 +36,19 @@ public class Main {
         }
 
         Queue<Integer> q = new LinkedList<>();
-        dist[sx][sy] = 0;
+
         q.add(sx);
         q.add(sy);
+        dist[sx][sy] = 0;
 
         while (!q.isEmpty()) {
             int x = q.poll();
             int y = q.poll();
 
-            for (int i = 0; i < 8; i++) {
-                int nx = x + dir[i][0];
-                int ny = y + dir[i][1];
+            for (int k = 0; k < 8; k++) {
+                int nx = x + dir[k][0];
+                int ny = y + dir[k][1];
+
                 if (nx < 1 || ny < 1 || nx > N || ny > N) continue;
                 if (dist[nx][ny] != -1) continue;
                 q.add(nx);
@@ -45,15 +56,7 @@ public class Main {
                 dist[nx][ny] = dist[x][y] + 1;
             }
         }
-    }
 
-    static void pro() {
-        bfs();
-        while (M-- > 0) {
-            int ex = scan.nextInt();
-            int ey = scan.nextInt();
-            System.out.print(dist[ex][ey]+ " ");
-        }
     }
 
     public static void main(String[] args) {
