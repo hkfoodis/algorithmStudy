@@ -16,8 +16,12 @@ public class Main {
         visit = new boolean[100005];
         dist = new int[100005];
     }
+    
+    static void pro() {
+        bfs();
+        System.out.println(dist[K]);
+    }
 
-    // 숨바꼭질 시작~
     static void bfs() {
         Queue<Integer> Q = new LinkedList<>();
         Q.add(N);
@@ -43,11 +47,6 @@ public class Main {
                 Q.add(x * 2);
             }
         }
-    }
-
-    static void pro() {
-        bfs();
-        System.out.println(dist[K]);
     }
 
     public static void main(String[] args) {
